@@ -206,6 +206,60 @@ public class tryBST {
         System.out.print("In-order: ");
         testTree.inOrder();
         System.out.println();
+        int n = 20;
+        int maxKey = (1 << n) - 1; // 2^n - 1
+        int repetitions = 30;
+
+        System.out.println("=== Timing benchmark: n=" + n
+                + ", keys=[1.." + maxKey + "], reps=" + repetitions + " ===");
+        System.out.println("(This may take several minutes — please wait)\n");
+
+        long[] populateTimes = new long[repetitions];
+        long[] removeTimes   = new long[repetitions];
+
+        BST tree = new BST();
+
+        for (int r = 0; r < repetitions; r++) {
+            tree.clear();
+
+            // Time: populate
+            long start = System.currentTimeMillis();
+            populateBST(tree, 1, maxKey);
+            long end = System.currentTimeMillis();
+            populateTimes[r] = end - start;
+
+            // Time: remove evens
+            start = System.currentTimeMillis();
+            removeEvens(tree, maxKey);
+            end = System.currentTimeMillis();
+            removeTimes[r] = end - start;
+
+            System.out.printf("Rep %2d: populate=%5dms  removeEvens=%5dms%n",
+                    r + 1, populateTimes[r], removeTimes[r]);
+        }
+
+        double avgPop    = mean(populateTimes);
+        double sdPop     = stddev(populateTimes, avgPop);
+        double avgRemove = mean(removeTimes);
+        double sdRemove  = stddev(removeTimes, avgRemove);
+
+        System.out.println();
+        System.out.println("=== Results ===");
+        System.out.printf("%-30s %15s %15s %20s%n",
+                "Method", "Number of keys", "Avg time (ms)", "Std Deviation (ms)");
+        System.out.printf("%-30s %15d %15.2f %20.2f%n",
+                "Populate tree", maxKey, avgPop, sdPop);
+        System.out.printf("%-30s %15d %15.2f %20.2f%n",
+                "Remove evens from tree", maxKey, avgRemove, sdRemove);
+
+        System.out.println();
+        System.out.println("Final tree isBST check (after last removeEvens): "
+                + tree.isBST());
+        System.out.println("Final tree size: " + tree.size()
+                + "  (expected: " + ((maxKey + 1) / 2) + " odd numbers)");
+    }
+}
+
 
 
 
