@@ -171,7 +171,21 @@ public class tryBST {
         for (int i = 0; i < count; i++) {
             tree.delete(evens[i]);
         }
+    }static double mean(long[] times) {
+        double sum = 0;
+        for (long t : times) sum += t;
+        return sum / times.length;
     }
+
+    static double stddev(long[] times, double avg) {
+        double sum = 0;
+        for (long t : times) {
+            double diff = t - avg;
+            sum += diff * diff;
+        }
+        return Math.sqrt(sum / times.length);
+    }
+
 
 
 
