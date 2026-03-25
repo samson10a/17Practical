@@ -139,7 +139,26 @@ public class tryBST {
             inOrderHelper(node.left);
             System.out.print(node.key + " ");
             inOrderHelper(node.right);
+        }int collectEvens(int[] evens) {
+            int[] idx = {0};
+            collectEvensHelper(root, evens, idx);
+            return idx[0];
         }
+
+        private void collectEvensHelper(tNode node, int[] evens, int[] idx) {
+            if (node == null) return;
+            collectEvensHelper(node.left, evens, idx);
+            if (node.key % 2 == 0) {
+                evens[idx[0]++] = node.key;
+            }
+            collectEvensHelper(node.right, evens, idx);
+        }
+
+        // Clear the tree
+        void clear() {
+            root = null;
+        }
+    }
 
 
 
