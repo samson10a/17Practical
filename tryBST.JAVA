@@ -97,5 +97,21 @@ public class tryBST {
                 y.left.parent = y;
             }
         }
+        // Delete node by key
+        void delete(int key) {
+            delete(search(key));
+        }
+
+        // isBST: checks that every node satisfies BST properties
+        boolean isBST() {
+            return isBSTHelper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        }
+
+        private boolean isBSTHelper(tNode node, int min, int max) {
+            if (node == null) return true;
+            if (node.key <= min || node.key >= max) return false;
+            return isBSTHelper(node.left, min, node.key)
+                && isBSTHelper(node.right, node.key, max);
+        }
 
 
