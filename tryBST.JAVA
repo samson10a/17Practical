@@ -185,6 +185,28 @@ public class tryBST {
         }
         return Math.sqrt(sum / times.length);
     }
+     public static void main(String[] args) {
+
+        // --- Quick correctness check with n=4 (15 nodes) ---
+        System.out.println("=== Correctness check (n=4, keys 1..15) ===");
+        BST testTree = new BST();
+        int testN = 4;
+        int testMax = (1 << testN) - 1; // 2^n - 1 = 15
+        populateBST(testTree, 1, testMax);
+        System.out.println("Is BST? " + testTree.isBST());
+        System.out.println("Size:   " + testTree.size());
+        System.out.println("Height: " + testTree.height());
+        System.out.print("In-order: ");
+        testTree.inOrder();
+
+        removeEvens(testTree, testMax);
+        System.out.println("After removing evens:");
+        System.out.println("Is BST? " + testTree.isBST());
+        System.out.println("Size:   " + testTree.size());
+        System.out.print("In-order: ");
+        testTree.inOrder();
+        System.out.println();
+
 
 
 
