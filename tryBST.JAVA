@@ -134,7 +134,13 @@ public class tryBST {
         void inOrder() {
             inOrderHelper(root);
             System.out.println();
+        }private void inOrderHelper(tNode node) {
+            if (node == null) return;
+            inOrderHelper(node.left);
+            System.out.print(node.key + " ");
+            inOrderHelper(node.right);
         }
+
 
 
 
