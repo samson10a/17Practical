@@ -62,4 +62,21 @@ public class tryBST {
                 current = (key < current.key) ? current.left : current.right;
             }
             return null;
+        }// Find minimum node in a subtree
+        tNode minimum(tNode node) {
+            while (node.left != null) node = node.left;
+            return node;
+        } // Transplant: replace subtree rooted at u with subtree rooted at v
+        void transplant(tNode u, tNode v) {
+            if (u.parent == null) {
+                root = v;
+            } else if (u == u.parent.left) {
+                u.parent.left = v;
+            } else {
+                u.parent.right = v;
+            }
+            if (v != null) {
+                v.parent = u.parent;
+            }
         }
+
