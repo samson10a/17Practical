@@ -112,6 +112,25 @@ public class tryBST {
             if (node.key <= min || node.key >= max) return false;
             return isBSTHelper(node.left, min, node.key)
                 && isBSTHelper(node.right, node.key, max);
+        } // Count nodes
+        int size() {
+            return sizeHelper(root);
         }
+
+        private int sizeHelper(tNode node) {
+            if (node == null) return 0;
+            return 1 + sizeHelper(node.left) + sizeHelper(node.right);
+        }
+
+        // Height of the tree
+        int height() {
+            return heightHelper(root);
+        }
+
+        private int heightHelper(tNode node) {
+            if (node == null) return 0;
+            return 1 + Math.max(heightHelper(node.left), heightHelper(node.right));
+        }
+
 
 
