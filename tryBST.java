@@ -1,10 +1,8 @@
-
 // CSC 211 - Practical 7 - Binary Search Tree
 // Consulted: Claude for structure and timing advice
-// Author:Mosa Nkuna 4446478 
+// Author: Mosa Nkuna 4446478
 // Date: 25 March 2026
-// Constructs a perfect balanced BST with integers [1..2^n - 1],
-
+// Constructs a perfect balanced BST with integers [1..2^n - 1]
 
 public class tryBST {
 
@@ -19,34 +17,36 @@ public class tryBST {
             this.parent = null;
         }
     }
+
     static class BST {
-                        tNode root;
+        tNode root;
 
-                        BST() {
-                            root = null;
-                        }
+        BST() {
+            root = null;
+        }
 
-                        // Standard BST insert
-                        void insert(int key) {
-                            tNode newNode = new tNode(key);
-                            if (root == null) {
-                                root = newNode;
-                                return;
-                            }
-                            tNode current = root;
-                            while (true) {
-                                if (key < current.key) {
-                                    if (current.left == null) {
-                                        current.left = newNode;
-                                        newNode.parent = current;
-                                        return;
-                                        current = current.left;
+        // Standard BST insert
+        void insert(int key) {
+            tNode newNode = new tNode(key);
+            if (root == null) {
+                root = newNode;
+                return;
+            }
+            tNode current = root;
+            while (true) {
+                if (key < current.key) {
+                    if (current.left == null) {
+                        current.left = newNode;
+                        newNode.parent = current;
+                        return;
+                    }
+                    current = current.left;          // BUG FIX: was placed after a misplaced return
                 } else if (key > current.key) {
                     if (current.right == null) {
                         current.right = newNode;
                         newNode.parent = current;
                         return;
-                    }    
+                    }
                     current = current.right;
                 } else {
                     // Duplicate key — ignore
@@ -54,6 +54,7 @@ public class tryBST {
                 }
             }
         }
+
         // Search for a key; returns node or null
         tNode search(int key) {
             tNode current = root;
@@ -62,11 +63,15 @@ public class tryBST {
                 current = (key < current.key) ? current.left : current.right;
             }
             return null;
-        }// Find minimum node in a subtree
+        }
+
+        // Find minimum node in a subtree
         tNode minimum(tNode node) {
             while (node.left != null) node = node.left;
             return node;
-        } // Transplant: replace subtree rooted at u with subtree rooted at v
+        }
+
+        // Transplant: replace subtree rooted at u with subtree rooted at v
         void transplant(tNode u, tNode v) {
             if (u.parent == null) {
                 root = v;
@@ -78,7 +83,9 @@ public class tryBST {
             if (v != null) {
                 v.parent = u.parent;
             }
-        }// Standard BST delete
+        }
+
+        // Standard BST delete
         void delete(tNode z) {
             if (z == null) return;
             if (z.left == null) {
@@ -97,6 +104,7 @@ public class tryBST {
                 y.left.parent = y;
             }
         }
+
         // Delete node by key
         void delete(int key) {
             delete(search(key));
@@ -112,7 +120,9 @@ public class tryBST {
             if (node.key <= min || node.key >= max) return false;
             return isBSTHelper(node.left, min, node.key)
                 && isBSTHelper(node.right, node.key, max);
-        } // Count nodes
+        }
+
+        // Count nodes
         int size() {
             return sizeHelper(root);
         }
@@ -130,16 +140,22 @@ public class tryBST {
         private int heightHelper(tNode node) {
             if (node == null) return 0;
             return 1 + Math.max(heightHelper(node.left), heightHelper(node.right));
-        }// In-order traversal (for debugging small trees)
+        }
+
+        // In-order traversal (for debugging small trees)
         void inOrder() {
             inOrderHelper(root);
             System.out.println();
-        }private void inOrderHelper(tNode node) {
+        }
+
+        private void inOrderHelper(tNode node) {
             if (node == null) return;
             inOrderHelper(node.left);
             System.out.print(node.key + " ");
             inOrderHelper(node.right);
-        }int collectEvens(int[] evens) {
+        }
+
+        int collectEvens(int[] evens) {
             int[] idx = {0};
             collectEvensHelper(root, evens, idx);
             return idx[0];
@@ -158,20 +174,25 @@ public class tryBST {
         void clear() {
             root = null;
         }
-    }static void populateBST(BST tree, int lo, int hi) {
+    }
+
+    static void populateBST(BST tree, int lo, int hi) {
         if (lo > hi) return;
         int mid = lo + (hi - lo) / 2;
         tree.insert(mid);
         populateBST(tree, lo, mid - 1);
         populateBST(tree, mid + 1, hi);
-    } static void removeEvens(BST tree, int totalNodes) {
-        // Collect all even keys first to avoid modifying tree during traversal
+    }
+
+    static void removeEvens(BST tree, int totalNodes) {
         int[] evens = new int[totalNodes / 2 + 1];
         int count = tree.collectEvens(evens);
         for (int i = 0; i < count; i++) {
             tree.delete(evens[i]);
         }
-    }static double mean(long[] times) {
+    }
+
+    static double mean(long[] times) {
         double sum = 0;
         for (long t : times) sum += t;
         return sum / times.length;
@@ -185,7 +206,8 @@ public class tryBST {
         }
         return Math.sqrt(sum / times.length);
     }
-     public static void main(String[] args) {
+
+    public static void main(String[] args) {
 
         // --- Quick correctness check with n=4 (15 nodes) ---
         System.out.println("=== Correctness check (n=4, keys 1..15) ===");
@@ -206,6 +228,7 @@ public class tryBST {
         System.out.print("In-order: ");
         testTree.inOrder();
         System.out.println();
+
         int n = 20;
         int maxKey = (1 << n) - 1; // 2^n - 1
         int repetitions = 30;
@@ -222,13 +245,11 @@ public class tryBST {
         for (int r = 0; r < repetitions; r++) {
             tree.clear();
 
-            // Time: populate
             long start = System.currentTimeMillis();
             populateBST(tree, 1, maxKey);
             long end = System.currentTimeMillis();
             populateTimes[r] = end - start;
 
-            // Time: remove evens
             start = System.currentTimeMillis();
             removeEvens(tree, maxKey);
             end = System.currentTimeMillis();
@@ -259,10 +280,3 @@ public class tryBST {
                 + "  (expected: " + ((maxKey + 1) / 2) + " odd numbers)");
     }
 }
-
-
-
-
-
-
-
