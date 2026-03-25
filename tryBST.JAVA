@@ -78,5 +78,24 @@ public class tryBST {
             if (v != null) {
                 v.parent = u.parent;
             }
+        }// Standard BST delete
+        void delete(tNode z) {
+            if (z == null) return;
+            if (z.left == null) {
+                transplant(z, z.right);
+            } else if (z.right == null) {
+                transplant(z, z.left);
+            } else {
+                tNode y = minimum(z.right);
+                if (y.parent != z) {
+                    transplant(y, y.right);
+                    y.right = z.right;
+                    y.right.parent = y;
+                }
+                transplant(z, y);
+                y.left = z.left;
+                y.left.parent = y;
+            }
         }
+
 
