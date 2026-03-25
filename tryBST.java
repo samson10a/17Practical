@@ -1,4 +1,4 @@
-// CSC 211 - Practical 7 - Binary Search Tree
+// CSC 211 - Practical 7 - Binary Search Tree.
 // Consulted: Claude for structure and timing advice
 // Author: Mosa Nkuna 4446478
 // Date: 25 March 2026
