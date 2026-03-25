@@ -46,4 +46,20 @@ public class tryBST {
                         current.right = newNode;
                         newNode.parent = current;
                         return;
-                    }
+                    }    
+                    current = current.right;
+                } else {
+                    // Duplicate key — ignore
+                    return;
+                }
+            }
+        }
+        // Search for a key; returns node or null
+        tNode search(int key) {
+            tNode current = root;
+            while (current != null) {
+                if (key == current.key) return current;
+                current = (key < current.key) ? current.left : current.right;
+            }
+            return null;
+        }
