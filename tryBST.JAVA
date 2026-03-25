@@ -164,6 +164,13 @@ public class tryBST {
         tree.insert(mid);
         populateBST(tree, lo, mid - 1);
         populateBST(tree, mid + 1, hi);
+    } static void removeEvens(BST tree, int totalNodes) {
+        // Collect all even keys first to avoid modifying tree during traversal
+        int[] evens = new int[totalNodes / 2 + 1];
+        int count = tree.collectEvens(evens);
+        for (int i = 0; i < count; i++) {
+            tree.delete(evens[i]);
+        }
     }
 
 
