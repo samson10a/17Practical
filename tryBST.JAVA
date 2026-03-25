@@ -158,6 +158,12 @@ public class tryBST {
         void clear() {
             root = null;
         }
+    }static void populateBST(BST tree, int lo, int hi) {
+        if (lo > hi) return;
+        int mid = lo + (hi - lo) / 2;
+        tree.insert(mid);
+        populateBST(tree, lo, mid - 1);
+        populateBST(tree, mid + 1, hi);
     }
 
 
