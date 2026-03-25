@@ -130,6 +130,10 @@ public class tryBST {
         private int heightHelper(tNode node) {
             if (node == null) return 0;
             return 1 + Math.max(heightHelper(node.left), heightHelper(node.right));
+        }// In-order traversal (for debugging small trees)
+        void inOrder() {
+            inOrderHelper(root);
+            System.out.println();
         }
 
 
