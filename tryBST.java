@@ -209,7 +209,7 @@ public class tryBST {
 
     public static void main(String[] args) {
 
-        // --- Quick correctness check with n=4 (15 nodes) ---
+        // Quick correctness check with n=4 (15 nodes
         System.out.println("=== Correctness check (n=4, keys 1..15) ===");
         BST testTree = new BST();
         int testN = 4;
